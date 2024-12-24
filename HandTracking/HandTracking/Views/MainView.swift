@@ -7,17 +7,24 @@
 
 import SwiftUI
 
-
 struct MainView: View {
-
     @Environment(\.openImmersiveSpace) var openImmersiveSpace
+    @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
+
+    @State var handsTrackingEnabled = false
 
     var body: some View {
-        
-        Button("Enable Hand Tracking") {
+        Button {
+            handsTrackingEnabled.toggle()
             Task {
-                await openImmersiveSpace(id: "HandTrackingScene")
+                if handsTrackingEnabled {
+                    await openImmersiveSpace(id: "HandTrackingScene")
+                } else {
+                    await dismissImmersiveSpace()
+                }
             }
+        } label: {
+            Text(handsTrackingEnabled ? "Close hands detection" : "Open hands detection")
         }
     }
 }
