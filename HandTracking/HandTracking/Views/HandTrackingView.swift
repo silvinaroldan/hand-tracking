@@ -20,7 +20,7 @@ struct HandTrackingView: View {
             do {
                 try await vm.startARKitSession()
             } catch {
-                print("Error iniciando la sesión.")
+                print("Error \(error)")
             }
         }
         .task(priority: .low) {
