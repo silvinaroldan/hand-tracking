@@ -10,50 +10,54 @@ import RealityKit
 import RealityKitContent
 import SwiftUI
 
-
 @Observable
 final class HandTrackingViewModel {
+    private let session = ARKitSession()
+    private let handTracking = HandTrackingProvider()
     
-    let session = ARKitSession()
-    let handProvider = HandTrackingProvider()
+    private var contentEntity = Entity()
+    private let fingerEntities: [HandAnchor.Chirality: ModelEntity] = [.left: .createFingerTip(), .right: .createFingerTip()]
     
-    let contentEntity = Entity()
-    
+    func setupContentEntity() -> Entity {
+        for entity in fingerEntities.values {
+            contentEntity.addChild(entity)
+        }
+        return contentEntity
+    }
+
     func startARKitSession() async throws {
         let result = await session.requestAuthorization(for: [.handTracking])
         if let handAuthorization = result[.handTracking],
-           handAuthorization == .allowed {
-            try await session.run([handProvider])
+           handAuthorization == .allowed
+        {
+            try await session.run([handTracking])
         } else {
             print("ARKit is not supported or not authorized.")
         }
     }
     
     @MainActor func processHands() async {
-        for await update in handProvider.anchorUpdates {
+        for await update in handTracking.anchorUpdates {
             switch update.event {
                 case .added, .updated:
           
-                let anchor = update.anchor
-                guard anchor.isTracked else { continue }
+                    let anchor = update.anchor
+                    guard anchor.isTracked else { continue }
                 
-                let handPart = anchor.handSkeleton?.joint(.ringFingerIntermediateBase)
-                guard ((handPart?.isTracked) != nil) else { continue }
+                    let fingertip = anchor.handSkeleton?.joint(.indexFingerTip)
+                    guard (fingertip?.isTracked) != nil else { continue }
                 
-                let origin = anchor.originFromAnchorTransform
-                let wristFromIndex = handPart?.anchorFromJointTransform
-                let originFromIndex = origin * wristFromIndex!
+                    let origin = anchor.originFromAnchorTransform
+                    let wristFromIndex = fingertip?.anchorFromJointTransform
+                    let originFromIndex = origin * wristFromIndex!
                 
-                // Maybe is more performant to load the entity in reality composer pro package
-                let entity = try! await Entity(named: "ball")
-              
-                entity.setTransformMatrix(originFromIndex, relativeTo: nil)
-                contentEntity.addChild(entity)
+                    fingerEntities[anchor.chirality]?.setTransformMatrix(originFromIndex, relativeTo: nil)
+                    
+                    
                 default: ()
             }
         }
     }
-    
     
 //    func updateHandEntity(anchor: HandAnchor) {
 //        guard anchor.isTracked,
