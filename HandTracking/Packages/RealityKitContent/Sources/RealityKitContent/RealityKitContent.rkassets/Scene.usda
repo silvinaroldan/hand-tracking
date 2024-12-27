@@ -1,5 +1,8 @@
 #usda 1.0
 (
+    customLayerData = {
+        string creator = "Reality Composer Pro Version 2.0 (448.60.4)"
+    }
     defaultPrim = "Root"
     metersPerUnit = 1
     upAxis = "Y"
@@ -7,50 +10,18 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["MetallicGoldPULeather", "Sphere"]
-    rel material:binding = None (
-        bindMaterialAs = "weakerThanDescendants"
-    )
-
-    def "MetallicGoldPULeather" (
+    def "candle" (
         active = true
-        references = @Materials/MetallicGoldPULeather.usdz@
+        prepend references = @candle.usdz@
     )
     {
-        reorder nameChildren = ["UsdPreviewSurface", "add", "Swizzle_1", "Swizzle", "Multiply_1", "Mix", "Dot", "Metallic", "PreviewSurface", "Normal", "BaseColor", "Roughness", "multiply", "Sphere"]
-        def Sphere "Sphere" (
-            active = true
-            prepend apiSchemas = ["MaterialBindingAPI"]
-        )
+        float3 xformOp:scale = (0.00001, 0.00001, 0.00001)
+        float3 xformOp:translate = (0, -2.9802322e-8, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        over "candle"
         {
-            rel material:binding = </Root/MetallicGoldPULeather> (
-                bindMaterialAs = "weakerThanDescendants"
-            )
-            double radius = 0.05
-            quatf xformOp:orient = (1, 0, 0, 0)
-            float3 xformOp:scale = (0.5, 0.5, 0.5)
-            float3 xformOp:translate = (0, 0.01, 0)
-            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-
-            def RealityKitComponent "Collider"
-            {
-                uint group = 1
-                uniform token info:id = "RealityKit.Collider"
-                uint mask = 4294967295
-                token type = "Default"
-
-                def RealityKitStruct "Shape"
-                {
-                    float3 extent = (0.2, 0.2, 0.2)
-                    float radius = 0.05
-                    token shapeType = "Sphere"
-                }
-            }
-
-            def RealityKitComponent "InputTarget"
-            {
-                uniform token info:id = "RealityKit.InputTarget"
-            }
+            float3 xformOp:scale = (1, 1, 1)
         }
     }
 }

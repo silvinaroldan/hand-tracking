@@ -19,13 +19,22 @@ final class HandTrackingViewModel {
     
     private var fingerEntities = [HandAnchor.Chirality: Entity]()
     
-    func setupContentEntity() -> Entity {
-        fingerEntities[.left] = try! Entity.load(named: "ball")
-        fingerEntities[.right] = try! Entity.load(named: "ball")
+    func setupContentEntity() async -> Entity {
+        fingerEntities[.left] = await createFingerTip()
+        fingerEntities[.right] = await createFingerTip()
         for entity in fingerEntities.values {
-            contentEntity.addChild(entity)
+            await contentEntity.addChild(entity)
         }
         return contentEntity
+    }
+    
+    func createFingerTip() async -> Entity {
+        //let entity = try! await Entity(named:"ball")
+        let entity = try! await Entity(named: "candle", in: realityKitContentBundle)
+        
+        await entity.components.set(PhysicsBodyComponent(mode: .kinematic))
+        await entity.components.set(OpacityComponent(opacity: 1.0))
+        return entity
     }
 
     func startARKitSession() async throws {
