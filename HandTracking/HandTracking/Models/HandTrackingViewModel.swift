@@ -44,15 +44,21 @@ final class HandTrackingViewModel {
                     let anchor = update.anchor
                     guard anchor.isTracked else { continue }
                 
-                    let fingertip = anchor.handSkeleton?.joint(.indexFingerTip)
-                    guard (fingertip?.isTracked) != nil else { continue }
+//                    let fingertip = anchor.handSkeleton?.joint(.thumbIntermediateTip)
+                    let fingerThumb = anchor.handSkeleton?.joint(.thumbIntermediateTip)
+                    let fingerIndex = anchor.handSkeleton?.joint(.indexFingerIntermediateTip)
+                    guard (fingerThumb?.isTracked) != nil else { continue }
                 
                     let origin = anchor.originFromAnchorTransform
-                    let wristFromIndex = fingertip?.anchorFromJointTransform
+                    let wristFromThumb = fingerThumb?.anchorFromJointTransform
+                    let originFromThumb = origin * wristFromThumb!
+               
+                    let wristFromIndex = fingerIndex?.anchorFromJointTransform
                     let originFromIndex = origin * wristFromIndex!
                 
-                    fingerEntities[anchor.chirality]?.setTransformMatrix(originFromIndex, relativeTo: nil)
-                    
+                    let transformPosition = (originFromIndex + originFromThumb) * 0.5
+                
+                    fingerEntities[anchor.chirality]?.setTransformMatrix(transformPosition, relativeTo: nil)
                     
                 default: ()
             }
