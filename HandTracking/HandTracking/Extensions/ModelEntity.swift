@@ -21,3 +21,14 @@ extension ModelEntity {
         return entity
     }
 }
+
+extension Entity {
+    
+    class func createFingerTip() async -> Entity {
+        let entity = try! await Entity(named:"ball")
+        
+        entity.components.set(PhysicsBodyComponent(mode: .kinematic))
+        entity.components.set(OpacityComponent(opacity: 1.0))
+        return entity
+    }
+}

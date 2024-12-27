@@ -16,9 +16,12 @@ final class HandTrackingViewModel {
     private let handTracking = HandTrackingProvider()
     
     private var contentEntity = Entity()
-    private let fingerEntities: [HandAnchor.Chirality: ModelEntity] = [.left: .createFingerTip(), .right: .createFingerTip()]
+    
+    private var fingerEntities = [HandAnchor.Chirality: Entity]()
     
     func setupContentEntity() -> Entity {
+        fingerEntities[.left] = try! Entity.load(named: "ball")
+        fingerEntities[.right] = try! Entity.load(named: "ball")
         for entity in fingerEntities.values {
             contentEntity.addChild(entity)
         }
