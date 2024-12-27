@@ -14,7 +14,7 @@ struct HandTrackingView: View {
 
     var body: some View {
         RealityView { content in
-            content.add(vm.contentEntity)
+            await content.add(vm.setupContentEntity())
         }
         .task {
             do {

@@ -8,6 +8,15 @@
     "objectMetadataList" : [
       [
         "0A9B4653-B11E-4D6A-850E-C6FCB621626C",
+        "Root",
+        "GridMaterial"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "0A9B4653-B11E-4D6A-850E-C6FCB621626C",
         "Root"
       ],
       {
@@ -18,15 +27,6 @@
         "0A9B4653-B11E-4D6A-850E-C6FCB621626C",
         "Root",
         "Sphere"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "0A9B4653-B11E-4D6A-850E-C6FCB621626C",
-        "Root",
-        "GridMaterial"
       ],
       {
         "isExpanded" : true,
@@ -44,7 +44,12 @@
       [
         "26DBAE76-5DD8-47B6-A085-1B4ADA111097",
         "Root",
-        "MetallicGoldPULeather"
+        "butterfly",
+        "Blue_Monarch_Butterfly",
+        "SkinnedMeshes",
+        "Sketchfab_model",
+        "root",
+        "GLTF_SceneRootNode"
       ],
       {
         "isExpanded" : true,
@@ -53,6 +58,169 @@
       [
         "26DBAE76-5DD8-47B6-A085-1B4ADA111097",
         "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "26DBAE76-5DD8-47B6-A085-1B4ADA111097",
+        "Root",
+        "butterfly",
+        "Blue_Monarch_Butterfly",
+        "Materials"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "26DBAE76-5DD8-47B6-A085-1B4ADA111097",
+        "Root",
+        "butterfly",
+        "Blue_Monarch_Butterfly",
+        "SkinnedMeshes",
+        "Sketchfab_model"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "26DBAE76-5DD8-47B6-A085-1B4ADA111097",
+        "Root",
+        "butterfly",
+        "Blue_Monarch_Butterfly",
+        "SkinnedMeshes",
+        "Sketchfab_model",
+        "root",
+        "GLTF_SceneRootNode",
+        "BlueMonarchArmature_5",
+        "GLTF_created_0",
+        "GLTF_created_0_rootJoint"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "26DBAE76-5DD8-47B6-A085-1B4ADA111097",
+        "Root",
+        "butterfly",
+        "butterfly"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "26DBAE76-5DD8-47B6-A085-1B4ADA111097",
+        "Root",
+        "butterfly",
+        "butterfly",
+        "Blue_Monarch_Butterfly"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "26DBAE76-5DD8-47B6-A085-1B4ADA111097",
+        "Root",
+        "butterfly",
+        "Blue_Monarch_Butterfly",
+        "SkinnedMeshes"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "26DBAE76-5DD8-47B6-A085-1B4ADA111097",
+        "Root",
+        "butterfly",
+        "Blue_Monarch_Butterfly"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "26DBAE76-5DD8-47B6-A085-1B4ADA111097",
+        "Root",
+        "butterfly",
+        "Blue_Monarch_Butterfly",
+        "SkinnedMeshes",
+        "Sketchfab_model",
+        "root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "26DBAE76-5DD8-47B6-A085-1B4ADA111097",
+        "Root",
+        "butterfly",
+        "Blue_Monarch_Butterfly",
+        "SkinnedMeshes",
+        "Sketchfab_model",
+        "root",
+        "GLTF_SceneRootNode",
+        "BlueMonarchArmature_5",
+        "GLTF_created_0"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "26DBAE76-5DD8-47B6-A085-1B4ADA111097",
+        "Root",
+        "candle",
+        "candle"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "26DBAE76-5DD8-47B6-A085-1B4ADA111097",
+        "Root",
+        "MetallicGoldPULeather"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "26DBAE76-5DD8-47B6-A085-1B4ADA111097",
+        "Root",
+        "butterfly",
+        "Blue_Monarch_Butterfly",
+        "SkinnedMeshes",
+        "Sketchfab_model",
+        "root",
+        "GLTF_SceneRootNode",
+        "BlueMonarchArmature_5"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "26DBAE76-5DD8-47B6-A085-1B4ADA111097",
+        "Root",
+        "butterfly",
+        "Blue_Monarch_Butterfly",
+        "SkinnedMeshes",
+        "Sketchfab_model",
+        "root",
+        "GLTF_SceneRootNode",
+        "BlueMonarchArmature_5",
+        "GLTF_created_0",
+        "GLTF_created_0_rootJoint",
+        "skin0"
       ],
       {
         "isExpanded" : true,
