@@ -20,7 +20,7 @@ final class HandTrackingViewModel {
     private var fingerEntities = [HandAnchor.Chirality: Entity]()
     
     func setupContentEntity() async -> Entity {
-        fingerEntities[.left] = await createFingerTip()
+        // fingerEntities[.left] = await createFingerTip()
         fingerEntities[.right] = await createFingerTip()
         for entity in fingerEntities.values {
             await contentEntity.addChild(entity)
@@ -28,15 +28,6 @@ final class HandTrackingViewModel {
         return contentEntity
     }
     
-    func createFingerTip() async -> Entity {
-        //let entity = try! await Entity(named:"ball")
-        let entity = try! await Entity(named: "candle", in: realityKitContentBundle)
-        
-        await entity.components.set(PhysicsBodyComponent(mode: .kinematic))
-        await entity.components.set(OpacityComponent(opacity: 1.0))
-        return entity
-    }
-
     func startARKitSession() async throws {
         let result = await session.requestAuthorization(for: [.handTracking])
         if let handAuthorization = result[.handTracking],
@@ -51,55 +42,56 @@ final class HandTrackingViewModel {
     @MainActor func processHands() async {
         for await update in handTracking.anchorUpdates {
             switch update.event {
-                case .added, .updated:
-          
-                    let anchor = update.anchor
-                    guard anchor.isTracked else { continue }
+            case .added, .updated:
                 
-//                    let fingertip = anchor.handSkeleton?.joint(.thumbIntermediateTip)
-                    let fingerThumb = anchor.handSkeleton?.joint(.thumbIntermediateTip)
-                    let fingerIndex = anchor.handSkeleton?.joint(.indexFingerIntermediateTip)
-                    guard (fingerThumb?.isTracked) != nil else { continue }
+                let anchor = update.anchor
+                guard anchor.isTracked else { continue }
                 
-                    let origin = anchor.originFromAnchorTransform
-                    let wristFromThumb = fingerThumb?.anchorFromJointTransform
-                    let originFromThumb = origin * wristFromThumb!
-               
-                    let wristFromIndex = fingerIndex?.anchorFromJointTransform
-                    let originFromIndex = origin * wristFromIndex!
+                //                    let fingertip = anchor.handSkeleton?.joint(.thumbIntermediateTip)
+                //                    let fingerThumb = anchor.handSkeleton?.joint(.thumbIntermediateTip)
+                let fingerIndex = anchor.handSkeleton?.joint(.middleFingerIntermediateTip)
+                guard (fingerIndex?.isTracked) != nil else { continue }
                 
-                    let transformPosition = (originFromIndex + originFromThumb) * 0.5
+                let origin = anchor.originFromAnchorTransform
+                //                    let wristFromThumb = fingerThumb?.anchorFromJointTransform
+                //                    let originFromThumb = origin * wristFromThumb!
                 
-                    fingerEntities[anchor.chirality]?.setTransformMatrix(transformPosition, relativeTo: nil)
-                    
-                default: ()
+                let wristFromIndex = fingerIndex?.anchorFromJointTransform
+                let originFromIndex = origin * wristFromIndex!
+                
+                //                    let transformPosition = (originFromIndex + originFromThumb) * 0.5
+                
+                fingerEntities[anchor.chirality]?.setTransformMatrix(originFromIndex, relativeTo: nil)
+                
+            default: ()
             }
         }
     }
     
-//    func updateHandEntity(anchor: HandAnchor) {
-//        guard anchor.isTracked,
-//              let skeleton = anchor.handSkeleton else { return }
-//        for joint in skeleton.allJoints {
-//            let name = "\(anchor.chirality.description)\(joint.name)"
-//         //   print(name + "\n")
-//         //   let name = HandSkeleton.JointName.middleFingerMetacarpal
-//            if let entity = contentEntity.findEntity(named: name) {
-//                if joint.isTracked {
-//                    entity.setTransformMatrix(anchor.originFromAnchorTransform * joint.anchorFromJointTransform, relativeTo: nil)
-//                    entity.isEnabled = true
-//                } else {
-//                    entity.isEnabled = false
-//                }
-//            } else {
-//                guard joint.isTracked else { continue }
-//               //let entity = ModelEntity(mesh: .generateBox(size: 0.01, cornerRadius: 0.02),
-//     //                                    materials: [SimpleMaterial(color: .purple, isMetallic: false)])
-//                let entity = try! Entity.load(named: "ball")
-//                entity.name = name
-//                entity.setTransformMatrix(anchor.originFromAnchorTransform * joint.anchorFromJointTransform, relativeTo: nil)
-//                contentEntity.addChild(entity)
-//            }
+    private func createFingerTip() async -> Entity {
+        // let entity = try! await Entity(named:"ball")
+        let animScene = try! await Entity(named: "butterfly", in: realityKitContentBundle)
+        
+        await animScene.components.set(PhysicsBodyComponent(mode: .kinematic))
+        await animScene.components.set(OpacityComponent(opacity: 1.0))
+        
+        
+        if let animation = await animScene.availableAnimations.first {
+            await animScene.playAnimation(animation.repeat())
+        }
+        
+        
+       
+//        guard let animResource = await animModel.availableAnimations.first else {
+//            return animScene}
+//        do {
+//            let anim = try await AnimationResource.generate(with: animResource.repeat().definition)
+//            
+//             await animModel.playAnimation(anim)
+//        } catch {
+//            print("Error: \(error)")
 //        }
-//    }
+
+        return animScene
+    }
 }

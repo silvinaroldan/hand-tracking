@@ -10,19 +10,14 @@
 
 def Xform "Root"
 {
-    def "candle" (
+    def "butterfly" (
         active = true
-        prepend references = @candle.usdz@
+        prepend references = @butterfly.usdz@
     )
     {
-        float3 xformOp:scale = (0.00001, 0.00001, 0.00001)
-        float3 xformOp:translate = (0, -2.9802322e-8, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0.0030097505, 0, 0.026139759)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-
-        over "candle"
-        {
-            float3 xformOp:scale = (1, 1, 1)
-        }
     }
 }
 
