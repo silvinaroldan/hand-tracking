@@ -7,6 +7,7 @@
 
 import Foundation
 import RealityKit
+import RealityKitContent
 
 extension ModelEntity {
     
@@ -25,7 +26,8 @@ extension ModelEntity {
 extension Entity {
     
     class func createFingerTip() async -> Entity {
-        let entity = try! await Entity(named:"ball")
+        //let entity = try! await Entity(named:"ball")
+        let entity = try! await Entity(named: "Sphere", in: realityKitContentBundle)
         
         entity.components.set(PhysicsBodyComponent(mode: .kinematic))
         entity.components.set(OpacityComponent(opacity: 1.0))
