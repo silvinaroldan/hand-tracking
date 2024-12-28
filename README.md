@@ -1,4 +1,4 @@
-# Hand Tracking with animated butterfly 
+# visionOS hand tracking with animated butterfly 
 
 <img width="400"  src="https://github.com/user-attachments/assets/406b3aed-f679-436f-833b-93137496ebc8" />
 </br>
