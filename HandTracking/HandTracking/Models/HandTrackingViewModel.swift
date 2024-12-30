@@ -42,24 +42,18 @@ final class HandTrackingViewModel {
     @MainActor func processHands() async {
         for await update in handTracking.anchorUpdates {
             switch update.event {
-            case .added, .updated:
+            case .updated:
                 
                 let anchor = update.anchor
                 guard anchor.isTracked else { continue }
                 
-                //                    let fingertip = anchor.handSkeleton?.joint(.thumbIntermediateTip)
-                //                    let fingerThumb = anchor.handSkeleton?.joint(.thumbIntermediateTip)
                 let fingerIndex = anchor.handSkeleton?.joint(.middleFingerIntermediateTip)
                 guard (fingerIndex?.isTracked) != nil else { continue }
                 
                 let origin = anchor.originFromAnchorTransform
-                //                    let wristFromThumb = fingerThumb?.anchorFromJointTransform
-                //                    let originFromThumb = origin * wristFromThumb!
                 
                 let wristFromIndex = fingerIndex?.anchorFromJointTransform
                 let originFromIndex = origin * wristFromIndex!
-                
-                //                    let transformPosition = (originFromIndex + originFromThumb) * 0.5
                 
                 fingerEntities[anchor.chirality]?.setTransformMatrix(originFromIndex, relativeTo: nil)
                 
@@ -69,28 +63,14 @@ final class HandTrackingViewModel {
     }
     
     private func createFingerTip() async -> Entity {
-        // let entity = try! await Entity(named:"ball")
         let animScene = try! await Entity(named: "butterfly", in: realityKitContentBundle)
         
         await animScene.components.set(PhysicsBodyComponent(mode: .kinematic))
         await animScene.components.set(OpacityComponent(opacity: 1.0))
         
-        
         if let animation = await animScene.availableAnimations.first {
             await animScene.playAnimation(animation.repeat())
         }
-        
-        
-       
-//        guard let animResource = await animModel.availableAnimations.first else {
-//            return animScene}
-//        do {
-//            let anim = try await AnimationResource.generate(with: animResource.repeat().definition)
-//            
-//             await animModel.playAnimation(anim)
-//        } catch {
-//            print("Error: \(error)")
-//        }
 
         return animScene
     }
