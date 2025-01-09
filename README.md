@@ -1,4 +1,4 @@
-## visionOS hand tracking with animated butterfly 
+## visionOS ARKit hand tracking - Animated butterfly 
 
 
 
