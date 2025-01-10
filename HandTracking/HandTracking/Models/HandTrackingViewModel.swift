@@ -36,6 +36,10 @@ final class HandTrackingViewModel {
         }
     }
     
+    func removeEntities() {
+        contentEntity.children.removeAll()
+    }
+    
     @MainActor func processHands() async {
         for await update in handTracking.anchorUpdates {
             switch update.event {

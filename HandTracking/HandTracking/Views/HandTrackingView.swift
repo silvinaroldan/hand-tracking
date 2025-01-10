@@ -26,5 +26,8 @@ struct HandTrackingView: View {
         .task(priority: .low) {
             await vm.processHands()
         }
+        .onDisappear {
+            vm.removeEntities()
+        }
     }
 }
