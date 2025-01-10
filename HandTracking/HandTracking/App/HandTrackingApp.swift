@@ -13,7 +13,7 @@ struct HandTrackingApp: App {
         WindowGroup {
             MainView()
         }
-        .defaultSize(width: 0.3, height: 0.35, depth: 0.0, in: .meters)
+        .windowResizability(.contentSize)
         
         ImmersiveSpace(id: "HandTrackingScene") {
             HandTrackingView()
